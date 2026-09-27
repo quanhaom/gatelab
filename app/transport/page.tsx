@@ -30,7 +30,16 @@ export default function TransportPage() {
   const selectedShipment = useMemo(() => shipments.find((item) => item.code === selectedCode) ?? shipments[0], [selectedCode, shipments]);
 
   const chooseOption = (title: string) => {
-    const updated = shipments.map((item) => item.code === selectedShipment.code ? { ...item, transportOption: title, status: 'Đang vận chuyển' } : item);
+    const updated: ShipmentRecord[] = shipments.map((item) =>
+      item.code === selectedShipment.code
+        ? {
+            ...item,
+            transportOption: title,
+            status: "Đang vận chuyển",
+          }
+        : item
+    );
+
     setShipments(updated);
     setShipmentStorage(updated);
   };

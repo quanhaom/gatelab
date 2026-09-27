@@ -1,8 +1,17 @@
 'use client';
 
+import type {
+  LatLngExpression,
+} from "leaflet";
 import { useEffect } from 'react';
 import { CircleMarker, MapContainer, Popup, TileLayer, useMap } from 'react-leaflet';
 import type { LabRecord } from '@/lib/data';
+
+
+const VIETNAM_CENTER: LatLngExpression = [
+  16.2,
+  106.0,
+];
 
 function MapFocus({ selectedLab }: { selectedLab?: LabRecord }) {
   const map = useMap();
@@ -40,7 +49,7 @@ export default function LabsMap({
 
   return (
     <MapContainer
-      center={[16.2, 106.0]}
+      center={VIETNAM_CENTER}
       zoom={5.6}
       minZoom={5}
       maxZoom={12}
