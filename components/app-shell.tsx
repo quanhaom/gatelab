@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Boxes, FlaskConical, Gauge, LogOut, Route, ShieldCheck, BarChart3 } from 'lucide-react';
+import { Boxes, FlaskConical, Gauge, LogOut, Route, ShieldCheck, BarChart3,FileText } from 'lucide-react';
 import { branding } from '@/lib/branding';
 
 const nav = [
@@ -11,6 +11,7 @@ const nav = [
   { href: '/labs', label: 'Đề xuất phòng kiểm\nnghiệm', icon: FlaskConical },
   { href: '/transport', label: 'Đề xuất vận chuyển', icon: Route },
   { href: '/reports', label: 'Lịch sử & báo cáo', icon: BarChart3 },
+  {href: "/terms",label: "Điều khoản sử dụng",icon: FileText},
 ];
 
 export default function AppShell({ children }: { children: React.ReactNode }) {

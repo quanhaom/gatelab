@@ -170,3 +170,55 @@
 /* branding */
 .brand-logo-slot{overflow:hidden;padding:4px}
 .brand-logo-slot img{width:100%;height:100%;object-fit:contain;display:block}
+
+
+/* =========================================================
+   TERMS PAGE
+   ========================================================= */
+
+.terms-card {
+  padding: 28px 32px;
+  max-width: 1000px;
+}
+
+.terms-updated {
+  color: #7a8798;
+  font-size: 13px;
+  margin-bottom: 28px;
+}
+
+.terms-card section {
+  margin-bottom: 30px;
+}
+
+.terms-card section:last-child {
+  margin-bottom: 0;
+}
+
+.terms-card h2 {
+  margin: 0 0 12px;
+
+  color: #10203a;
+
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.terms-card p {
+  margin: 0 0 12px;
+
+  color: #4f5f73;
+
+  font-size: 14px;
+  line-height: 1.75;
+}
+
+.terms-card strong {
+  color: #1b2d46;
+}
+
+@media (max-width: 850px) {
+  .terms-card {
+    padding: 22px 18px;
+  }
+}

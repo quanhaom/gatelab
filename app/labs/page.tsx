@@ -13,6 +13,7 @@ import {
   REGION_COORDS,
   setShipmentStorage,
   ShipmentRecord,
+  ShipmentStatus
 } from '@/lib/data';
 
 type PriorityValues = [number, number, number];
@@ -78,10 +79,25 @@ export default function LabsPage() {
   }, [criteria, priorities, sortMode, warehouse]);
 
   const bookLab = (labId: number, labName: string) => {
-    const updated = shipments.map((item) => item.code === selectedShipment.code ? { ...item, status: 'Đã đặt lịch', bookedLabId: labId, bookedLabName: labName } : item);
+    const updated: ShipmentRecord[] = shipments.map((item) => {
+      if (item.code !== selectedShipment.code) {
+        return item;
+      }
+
+      return {
+        ...item,
+        status: "Đã đặt lịch" as ShipmentStatus,
+        bookedLabId: labId,
+        bookedLabName: labName,
+      };
+    });
+
     setShipments(updated);
     setShipmentStorage(updated);
-    setBookingNote(`Đã đặt lịch cho lô ${selectedShipment.code} tại ${labName}. Trạng thái lô đã chuyển sang “Đã đặt lịch”.`);
+
+    setBookingNote(
+      `Đã đặt lịch cho lô ${selectedShipment.code} tại ${labName}. Trạng thái lô đã chuyển sang “Đã đặt lịch”.`
+    );
   };
 
   if (!selectedShipment) {
