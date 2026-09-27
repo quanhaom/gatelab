@@ -3,5 +3,5 @@ export const branding = {
   tagline: 'EXPORT INTELLIGENCE',
   companyName: 'Công ty Minh Phát',
   companyRole: 'Nhà xuất khẩu',
-  logoPath: '/branding/logo.svg',
+  logoPath: '/branding/logo.png',
 };

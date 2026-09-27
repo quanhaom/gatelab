@@ -3,7 +3,7 @@
 import AppShell from '@/components/app-shell';
 import { Card, PageTitle, StatusBadge } from '@/components/ui';
 import { BarChart3, CheckCircle2, Clock3 } from 'lucide-react';
-import { getShipmentStorage } from '@/lib/data';
+import { formatDateVN, formatWeight, getShipmentStorage } from '@/lib/data';
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis, Area, AreaChart } from 'recharts';
 
 const reportData = [
@@ -75,7 +75,7 @@ export default function ReportsPage() {
         {shipments.slice(0, 5).map((shipment) => (
           <div className="activity-row" key={shipment.code}>
             <div className="activity-icon">▤</div>
-            <div className="activity-main"><strong>{shipment.code} · {shipment.location}</strong><span>{shipment.weightKg.toLocaleString('vi-VN')} kg · Thu hoạch {shipment.harvestDate.split('-').reverse().join('/')}</span></div>
+            <div className="activity-main"><strong>{shipment.code} · {shipment.location}</strong><span>{formatWeight(shipment.weightKg ?? 0)} · Thu hoạch {formatDateVN(shipment.harvestDate)}</span></div>
             <StatusBadge status={shipment.status} />
           </div>
         ))}

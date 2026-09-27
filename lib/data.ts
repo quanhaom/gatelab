@@ -189,12 +189,53 @@ export function haversineDistanceKm(a: { lat: number; lng: number }, b: { lat: n
   return Math.round(R * 2 * Math.atan2(Math.sqrt(sa), Math.sqrt(1 - sa)));
 }
 
+function parseLegacyWeight(value: unknown): number {
+  if (typeof value === 'number' && Number.isFinite(value)) return value;
+  if (typeof value !== 'string') return 0;
+  const digits = value.replace(/[^0-9]/g, '');
+  return Number(digits || 0);
+}
+
+function parseLegacyDate(value: unknown): string {
+  if (typeof value !== 'string' || !value) return new Date().toISOString().slice(0, 10);
+  if (/^\d{4}-\d{2}-\d{2}$/.test(value)) return value;
+  const match = value.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+  if (!match) return new Date().toISOString().slice(0, 10);
+  const [, d, m, y] = match;
+  return `${y}-${m.padStart(2, '0')}-${d.padStart(2, '0')}`;
+}
+
+function inferWarehouse(location: string): string {
+  const known = Object.keys(REGION_COORDS);
+  return known.find((name) => location.includes(name)) ?? 'Đắk Lắk';
+}
+
+function normalizeShipment(raw: any): ShipmentRecord {
+  const location = String(raw?.location ?? raw?.region ?? 'Đắk Lắk');
+  return {
+    code: String(raw?.code ?? `LG-${Date.now()}`),
+    region: String(raw?.region ?? location),
+    location,
+    warehouse: String(raw?.warehouse ?? inferWarehouse(location)),
+    harvestDate: parseLegacyDate(raw?.harvestDate ?? raw?.harvest),
+    weightKg: parseLegacyWeight(raw?.weightKg ?? raw?.weight),
+    status: (raw?.status ?? 'Chờ kiểm nghiệm') as ShipmentStatus,
+    bookedLabId: typeof raw?.bookedLabId === 'number' ? raw.bookedLabId : undefined,
+    bookedLabName: typeof raw?.bookedLabName === 'string' ? raw.bookedLabName : undefined,
+    transportOption: typeof raw?.transportOption === 'string' ? raw.transportOption : undefined,
+  };
+}
+
 export function getShipmentStorage(): ShipmentRecord[] {
   if (typeof window === 'undefined') return initialShipments;
   const raw = window.localStorage.getItem(STORAGE_KEYS.shipments);
   if (!raw) return initialShipments;
   try {
-    return JSON.parse(raw) as ShipmentRecord[];
+    const parsed = JSON.parse(raw);
+    if (!Array.isArray(parsed)) return initialShipments;
+    const normalized = parsed.map(normalizeShipment);
+    window.localStorage.setItem(STORAGE_KEYS.shipments, JSON.stringify(normalized));
+    return normalized;
   } catch {
     return initialShipments;
   }
