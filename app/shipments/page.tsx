@@ -125,8 +125,10 @@ export default function ShipmentsPage() {
                 <div><strong>{s.code}</strong><span>{s.location}</span></div>
                 <div>{formatDateVN(s.harvestDate)}</div>
                 <div>
-                  <div className="cold-head"><strong>Còn {remaining} ngày</strong><span>{COLD_CHAIN_DAYS} ngày</span></div>
-                  <Progress value={(remaining / COLD_CHAIN_DAYS) * 100} kind="cold" />
+                <div className="cold-head">
+                  <strong>Còn {remaining} ngày</strong>
+                  <span>Tối đa {COLD_CHAIN_DAYS} ngày</span>
+                </div>                  <Progress value={(remaining / COLD_CHAIN_DAYS) * 100} kind="cold" />
                 </div>
                 <div>{formatWeight(s.weightKg)}</div>
                 <div>

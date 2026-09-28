@@ -237,3 +237,372 @@
 .archipelago-tooltip::before {
   border-top-color: #ffffff !important;
 }
+
+/* =========================
+   SHIPMENTS - POLISH TEXT
+   ========================= */
+
+.table-card {
+  overflow: hidden;
+}
+
+.table-tools {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 18px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* Search */
+.searchbox {
+  width: 320px;
+  min-width: 260px;
+  height: 40px;
+
+  display: flex;
+  align-items: center;
+  gap: 9px;
+
+  padding: 0 12px;
+
+  border: 1px solid #cad5e1;
+  border-radius: 7px;
+
+  background: #f8fafc;
+  color: #7d8999;
+}
+
+.searchbox input {
+  flex: 1;
+  min-width: 0;
+
+  border: 0;
+  outline: 0;
+
+  background: transparent;
+
+  color: #22334a;
+
+  font-size: 12px;
+}
+
+/* Filter tabs */
+.tabs {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  flex: 1;
+
+  overflow-x: auto;
+  padding-bottom: 2px;
+
+  scrollbar-width: thin;
+}
+
+.tabs button {
+  flex: 0 0 auto;
+
+  height: 38px;
+
+  padding: 0 13px;
+
+  border: 1px solid #ccd6e1;
+  border-radius: 7px;
+
+  background: #ffffff;
+
+  color: #26364c;
+
+  font-size: 11px;
+  font-weight: 650;
+
+  line-height: 1;
+  white-space: nowrap;
+
+  cursor: pointer;
+
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.tabs button:hover {
+  background: #f5f8fc;
+  border-color: #b9c6d6;
+}
+
+.tabs button.active {
+  border-color: #284f90;
+
+  background: #284f90;
+
+  color: #ffffff;
+}
+
+/* Table */
+.ship-table {
+  width: 100%;
+  min-width: 960px;
+}
+
+.ship-head,
+.ship-row {
+  display: grid;
+
+  grid-template-columns:
+    minmax(210px, 1.45fr)
+    minmax(125px, 0.8fr)
+    minmax(180px, 1.05fr)
+    minmax(115px, 0.65fr)
+    minmax(175px, 1fr);
+
+  column-gap: 18px;
+
+  align-items: center;
+}
+
+.ship-head {
+  min-height: 44px;
+
+  padding: 0 20px;
+
+  background: #f2f5f9;
+
+  border-bottom: 1px solid #dbe2ea;
+
+  color: #657286;
+
+  font-size: 10px;
+  font-weight: 750;
+
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.ship-head > div {
+  white-space: nowrap;
+}
+
+.ship-row {
+  min-height: 78px;
+
+  padding: 12px 20px;
+
+  border-top: 1px solid #dbe2ea;
+
+  color: #22334a;
+
+  font-size: 12px;
+}
+
+.ship-row:first-of-type {
+  border-top: 0;
+}
+
+.ship-row:hover {
+  background: #fafcff;
+}
+
+/* Mã lô */
+.ship-row > div:first-child {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  min-width: 0;
+}
+
+.ship-row > div:first-child strong {
+  color: #11253f;
+
+  font-size: 12px;
+  font-weight: 750;
+
+  line-height: 1.3;
+}
+
+.ship-row > div:first-child span {
+  color: #7b8797;
+
+  font-size: 10px;
+  line-height: 1.3;
+}
+
+/* Ngày */
+.ship-row > div:nth-child(2) {
+  white-space: nowrap;
+
+  color: #34445a;
+
+  font-size: 12px;
+}
+
+/* Cold chain */
+.ship-row > div:nth-child(3) {
+  min-width: 0;
+}
+
+.cold-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 10px;
+
+  margin-bottom: 7px;
+
+  font-size: 10px;
+}
+
+.cold-head strong {
+  color: #1d2f46;
+
+  font-size: 11px;
+  font-weight: 700;
+
+  white-space: nowrap;
+}
+
+.cold-head span {
+  color: #94a0af;
+
+  font-size: 9px;
+
+  white-space: nowrap;
+}
+
+/* Khối lượng */
+.ship-row > div:nth-child(4) {
+  color: #26384f;
+
+  font-size: 12px;
+  font-weight: 600;
+
+  white-space: nowrap;
+}
+
+/* Trạng thái */
+.ship-row > div:nth-child(5) {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+
+  gap: 5px;
+
+  min-width: 0;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 24px;
+
+  padding: 4px 10px;
+
+  border-radius: 999px;
+
+  font-size: 10px;
+  font-weight: 650;
+
+  line-height: 1;
+
+  white-space: nowrap;
+}
+
+.status-subline {
+  max-width: 170px;
+
+  color: #7b8797;
+
+  font-size: 9px;
+  line-height: 1.35;
+}
+
+.row-action-btn {
+  min-height: 28px;
+
+  margin-top: 2px;
+
+  padding: 0 10px;
+
+  border: 1px solid #cad6e4;
+  border-radius: 5px;
+
+  background: #ffffff;
+
+  color: #284f90;
+
+  font-size: 10px;
+  font-weight: 650;
+
+  white-space: nowrap;
+
+  cursor: pointer;
+}
+
+.row-action-btn:hover {
+  background: #f0f5fb;
+}
+
+/* Progress cold chain */
+.ship-row .progress {
+  width: 100%;
+  height: 6px;
+
+  overflow: hidden;
+
+  border-radius: 999px;
+
+  background: #e8edf3;
+}
+
+
+/* =========================
+   RESPONSIVE
+   ========================= */
+
+@media (max-width: 1200px) {
+  .table-tools {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .searchbox {
+    width: 100%;
+  }
+
+  .tabs {
+    width: 100%;
+  }
+
+  .ship-table {
+    min-width: 900px;
+  }
+
+  .table-card {
+    overflow-x: auto;
+  }
+}
+
+@media (max-width: 850px) {
+  .ship-table {
+    min-width: 860px;
+  }
+
+  .ship-head,
+  .ship-row {
+    grid-template-columns:
+      190px
+      120px
+      170px
+      110px
+      170px;
+
+    column-gap: 14px;
+  }
+}
