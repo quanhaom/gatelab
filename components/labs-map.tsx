@@ -108,6 +108,18 @@ function markerColor(load: number) {
   return "#46b85f";
 }
 
+function getLoadStatus(load: number) {
+  if (load > 85) {
+    return "Quá tải";
+  }
+
+  if (load >= 50) {
+    return "Sắp đầy tải";
+  }
+
+  return "Đang hoạt động";
+}
+
 export default function LabsMap({
   labs,
   selectedLabId,
@@ -204,8 +216,29 @@ export default function LabsMap({
                   <strong>Chờ dự kiến:</strong> {lab.waitDays} ngày
                 </div>
 
-                <div style={{ marginTop: 4 }}>
-                  <strong>Trạng thái:</strong> {lab.status}
+                <div
+                  style={{
+                    marginTop: 4,
+                  }}
+                >
+                  <strong>
+                    Trạng thái:
+                  </strong>{" "}
+
+                  <span
+                    style={{
+                      color:
+                        lab.load > 85
+                          ? "#dc2626"
+                          : lab.load >= 50
+                          ? "#b8860b"
+                          : "#2e8b57",
+
+                      fontWeight: 700,
+                    }}
+                  >
+                    {getLoadStatus(lab.load)}
+                  </span>
                 </div>
               </div>
             </Popup>

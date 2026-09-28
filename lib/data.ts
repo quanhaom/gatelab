@@ -82,7 +82,7 @@ const lab = (
   load,
   waitDays,
   baseCost,
-  status: status ?? (load > 92 ? 'Tạm dừng' : load > 85 ? 'Quá tải' : 'Đang hoạt động'),
+  status: status ?? (load > 92 ? 'Quá tải' : load > 85 ? 'Quá tải' : 'Đang hoạt động'),
 });
 
 export const allLabs: LabRecord[] = [

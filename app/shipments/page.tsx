@@ -50,12 +50,17 @@ export default function ShipmentsPage() {
   const [q, setQ] = useState('');
   const [rows, setRows] = useState<ShipmentRecord[]>(initialShipments);
   const [showModal, setShowModal] = useState(false);
+  const today = new Date().toISOString().split("T")[0];
+
   const [form, setForm] = useState({
+    code: "",
     region: regionOptions[0],
     weightKg: 5000,
-    harvestDate: '2026-09-10',
-    warehouse: 'Đắk Lắk',
+    harvestDate: today,
+    warehouse: "Đắk Lắk",
   });
+
+const [formError, setFormError] = useState("");
 
   useEffect(() => {
     setRows(getShipmentStorage());
@@ -87,8 +92,32 @@ export default function ShipmentsPage() {
   };
 
   const createShipment = () => {
-    const now = new Date();
-    const code = `LG-${String(now.getFullYear()).slice(2)}${String(now.getMonth() + 1).padStart(2, '0')}${String(now.getDate()).padStart(2, '0')}-${String(rows.length + 1).padStart(2, '0')}`;
+    const code = form.code.trim().toUpperCase();
+
+    if (!code) {
+      setFormError("Vui lòng nhập mã lô.");
+      return;
+    }
+
+    const duplicated = rows.some(
+      (item) =>
+        item.code.toUpperCase() === code
+    );
+
+    if (duplicated) {
+      setFormError(
+        `Mã lô ${code} đã tồn tại. Vui lòng nhập mã khác.`
+      );
+      return;
+    }
+
+    if (!form.harvestDate) {
+      setFormError(
+        "Vui lòng chọn ngày thu hoạch."
+      );
+      return;
+    }
+
     const newShipment: ShipmentRecord = {
       code,
       region: form.region,
@@ -96,11 +125,26 @@ export default function ShipmentsPage() {
       warehouse: form.warehouse,
       harvestDate: form.harvestDate,
       weightKg: Number(form.weightKg),
-      status: 'Chờ kiểm nghiệm',
+      status: "Chờ kiểm nghiệm",
     };
-    setRows((current) => [newShipment, ...current]);
+
+    setRows((current) => [
+      newShipment,
+      ...current,
+    ]);
+
+    setFormError("");
+
+    setForm({
+      code: "",
+      region: regionOptions[0],
+      weightKg: 5000,
+      harvestDate: today,
+      warehouse: "Đắk Lắk",
+    });
+
     setShowModal(false);
-    setTab('Tất cả');
+    setTab("Tất cả");
   };
 
   return (
@@ -153,6 +197,27 @@ export default function ShipmentsPage() {
               <button className="icon-close-btn" onClick={() => setShowModal(false)}><X size={18} /></button>
             </div>
             <div className="modal-body">
+              <label>Mã lô</label>
+
+<input
+  type="text"
+  value={form.code}
+  placeholder="Ví dụ: LG-260928-01"
+  onChange={(e) => {
+    setForm({
+      ...form,
+      code: e.target.value.toUpperCase(),
+    });
+
+    setFormError("");
+  }}
+/>
+
+{formError && (
+  <div className="form-error">
+    {formError}
+  </div>
+)}
               <label>Vùng trồng</label>
               <select value={form.region} onChange={(e) => setForm({ ...form, region: e.target.value })}>{regionOptions.map((item) => <option key={item}>{item}</option>)}</select>
               <label>Khối lượng (kg)</label>
