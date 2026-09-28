@@ -59,7 +59,7 @@ export default function LabsMap({
     >
       <TileLayer
         attribution='&copy; OpenStreetMap contributors'
-        url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+        url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
 
       <MapFocus selectedLab={selectedLab} />
